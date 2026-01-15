@@ -10,5 +10,7 @@ class User
         private DateTime $createdAt
     ) {}
 
-    
+    public function updatePoints(int $points) {
+        $this->totalPoints = $points;
+    }
 }

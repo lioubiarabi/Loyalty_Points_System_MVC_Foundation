@@ -21,11 +21,25 @@ class AuthService
 
     public function register(string $name, string $email, string $password): bool
     {
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
-        if(strlen($password)<8) return false;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
+        if (strlen($password) < 8) return false;
         if ($this->userModel->findUser($email)) return false;
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
         return $this->userModel->create($name, $email, $hash);
+    }
+
+    public function login($email, $password)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
+        if (strlen($password) < 8) return false;
+
+        $user = $this->userModel->findUser($email);
+
+        if ($user && password_verify($password, $user->getPassword())) {
+            $_SESSION['user_email'] = $user->getEmail();
+            return true;
+        }
+        return false;
     }
 }

@@ -15,4 +15,13 @@ class User
         if($this->email == $email && $this->password == $password) return true;
         return false;
     }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+    
 }

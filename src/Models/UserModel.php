@@ -32,5 +32,10 @@ class UserModel
 
         return $stmt->execute([$name, $email, $passwordHash]);
     }
-    
+
+    public function updatePoints(int $userId, int $newBalance): bool
+    {
+        $stmt = $this->db->prepare("UPDATE users SET total_points = ? WHERE id = ?");
+        return $stmt->execute([$newBalance, $userId]);
+    }
 }

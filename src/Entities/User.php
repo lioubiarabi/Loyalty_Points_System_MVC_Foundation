@@ -6,11 +6,13 @@ class User
         private int $id,
         private string $email,
         private string $name,
+        private string $password,
         private int $totalPoints,
         private DateTime $createdAt
     ) {}
 
-    public function updatePoints(int $points) {
-        $this->totalPoints = $points;
+    public function auth($email, $password){
+        if($this->email == $email && $this->password == $password) return true;
+        return false;
     }
 }

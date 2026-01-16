@@ -24,4 +24,13 @@ class UserModel
             $user['createdat']
         );
     }
+
+    public function create(string $name, string $email, string $passwordHash): bool
+    {
+        $sql = "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([$name, $email, $passwordHash]);
+    }
+    
 }

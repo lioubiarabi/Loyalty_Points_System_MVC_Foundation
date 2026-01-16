@@ -23,5 +23,10 @@ class User
     public function getPassword() {
         return $this->password;
     }
+
+    public function getTotalPoints() {
+        return $this->totalPoints;
+    }
+
     
 }

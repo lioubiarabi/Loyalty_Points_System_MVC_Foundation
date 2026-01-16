@@ -3,8 +3,9 @@ session_start();
 
 class AuthService {
     
-    public function isLogged(): bool {
-        return isset($_SESSION['user_id']);
+    public function getCurrentUser(): ?string {
+        if(isset($_SESSION['user_email'])) return $_SESSION['user_email'];
+        return null;
     }
 
     public function logout() {

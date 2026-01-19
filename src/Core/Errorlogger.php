@@ -1,8 +1,11 @@
 <?php
 
+namespace App\Core;
+
+
 class ErrorLogger
 {
-    public static function log(Throwable $e)
+    public static function log(\Throwable $e)
     {
         $time = date("Y-m-d H:i:s");
         $message = "[$time]: {$e->getMessage()} | File: {$e->getFile()} | Line: {$e->getLine()}" . PHP_EOL;

@@ -1,13 +1,16 @@
 <?php
 
+namespace App\Core;
+
+
 class Database {
     public static function connect(){
         try {
-            $pdo = new PDO("mysql:host=localhost;dbname=loyaltypoints;", "root", "");
-            $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $pdo = new \PDO("mysql:host=localhost;dbname=loyaltypoints;", "root", "");
+            $pdo->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
 
             return $pdo;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             ErrorLogger::log($e);
         }
     }

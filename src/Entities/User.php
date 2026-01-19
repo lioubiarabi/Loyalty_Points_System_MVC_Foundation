@@ -7,7 +7,6 @@ class User
         private string $email,
         private string $name,
         private string $password,
-        private int $totalPoints,
         private DateTime $createdAt
     ) {}
 
@@ -22,10 +21,6 @@ class User
 
     public function getPassword() {
         return $this->password;
-    }
-
-    public function getTotalPoints() {
-        return $this->totalPoints;
     }
 
     

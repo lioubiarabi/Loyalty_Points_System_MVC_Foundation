@@ -21,7 +21,6 @@ class UserModel
             $user['email'],
             $user['name'],
             $user['password_hash'],
-            $user['total_points'],
             $user['createdat']
         );
     }
@@ -34,11 +33,5 @@ class UserModel
         $stmt = $this->db->prepare("INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)");
 
         return $stmt->execute([$name, $email, $this->authService->hashPassword($password)]);
-    }
-
-    public function updatePoints(int $userId, int $newBalance): bool
-    {
-        $stmt = $this->db->prepare("UPDATE users SET total_points = ? WHERE id = ?");
-        return $stmt->execute([$newBalance, $userId]);
     }
 }

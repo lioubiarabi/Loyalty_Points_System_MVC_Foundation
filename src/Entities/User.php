@@ -1,4 +1,5 @@
 <?php
+namespace App\Entities;
 
 class User
 {
@@ -7,7 +8,7 @@ class User
         private string $email,
         private string $name,
         private string $password,
-        private DateTime $createdAt
+        private \DateTime $createdAt
     ) {}
 
     public function auth($email, $password){

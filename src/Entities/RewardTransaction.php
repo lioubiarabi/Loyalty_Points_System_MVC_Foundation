@@ -1,4 +1,5 @@
 <?php
+namespace App\Entities;
 
 class RewardTransaction
 {
@@ -9,6 +10,6 @@ class RewardTransaction
         private int $amount,
         private string $description,
         private int $balanceAfter,
-        private DateTime $createdAt
+        private \DateTime $createdAt
     ) {}
 }

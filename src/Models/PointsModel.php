@@ -1,5 +1,8 @@
 <?php
+
 namespace App\Models;
+
+use App\Core\ErrorLogger;
 use App\Entities\{User, PointsTransaction};
 use App\Services\PointsService;
 
@@ -20,8 +23,34 @@ class PointsModel
 
     public function addAward(User $user, int $amountSpent): bool
     {
-        $stmt = $this->db->prepare("UPDATE users SET total_points = total_points + ? WHERE id = ?");
-        return $stmt->execute([$this->pointsService->calculateAward($amountSpent), $user->getId()]);
+        try {
+            $newPoints = $this->pointsService->calculateAward($amountSpent);
+            if ($newPoints <= 0) {
+                return false;
+            }
+
+            $this->db->beginTransaction();
+
+            $stmt = $this->db->prepare("UPDATE users SET total_points = total_points + ? WHERE id = ?");
+            $stmt->execute([$newPoints, $user->getId()]);
+
+            $newBalance = $this->getUserPoints($user) + $newPoints;
+            $stmtLog = $this->db->prepare("INSERT INTO points_transactions 
+                (user_id, type, amount, description, balance_after) 
+                VALUES (?, 'earned', ?, ?, ?)");
+            $stmtLog->execute([
+                $user->getId(),
+                $newPoints,
+                "Earned new points: ",
+                $newBalance
+            ]);
+            $this->db->commit();
+            return true;
+        } catch (\Throwable $th) {
+            $this->db->rollBack();
+            ErrorLogger::log($th);
+            return false;
+        }
     }
 
     public function discount(User $user, int $points): bool

@@ -24,6 +24,12 @@ class PointsModel
         return $stmt->execute([$this->pointsService->calculateAward($amountSpent), $user->getId()]);
     }
 
+    public function discount(User $user, int $points): bool
+    {
+        $stmt = $this->db->prepare("UPDATE users SET total_points = total_points - ? WHERE id = ?");
+        return $stmt->execute([$points, $user->getId()]);
+    }
+
     public function updatePoints(User $user, int $newBalance): bool
     {
         $stmt = $this->db->prepare("UPDATE users SET total_points = ? WHERE id = ?");

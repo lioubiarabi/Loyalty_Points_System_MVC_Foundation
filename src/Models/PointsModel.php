@@ -31,12 +31,12 @@ class PointsModel
         foreach ($stmt->fetchAll() as $transaction) {
             $history[$transaction['id']] = new RewardTransaction(
                 $transaction['id'],
-                $transaction['userId'],
+                $transaction['user_id'],
                 $transaction['type'],
                 $transaction['amount'],
                 $transaction['description'],
-                $transaction['balanceAfter'],
-                $transaction['createdat']
+                $transaction['balance_after'],
+                new \DateTime($transaction['createdat'])
             );
         }
 

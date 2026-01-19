@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entities;
 
 class Reward
@@ -11,5 +12,28 @@ class Reward
         private int $stock
     ) {}
 
-    
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getPointsRequired(): int
+    {
+        return $this->pointsRequired;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
 }

@@ -22,7 +22,7 @@ class AuthService
 
     public function validateRegister(string $name, string $email, string $password)
     {
-        if (!empty($name)) return false;
+        if (empty($name)) return false;
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
         if (strlen($password) < 8) return false;
         return true;

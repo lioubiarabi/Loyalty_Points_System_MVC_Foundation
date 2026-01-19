@@ -25,7 +25,7 @@ class UserModel
             $user['email'],
             $user['name'],
             $user['password_hash'],
-            $user['createdat']
+            new \DateTime($user['createdat'])
         );
     }
 

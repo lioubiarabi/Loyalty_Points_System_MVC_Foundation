@@ -36,4 +36,9 @@ class Reward
     {
         return $this->stock;
     }
+
+    public function isAvailable(): bool
+    {
+        return $this->stock === -1 || $this->stock > 0;
+    }
 }

@@ -1,11 +1,13 @@
 <?php
 namespace App\Models;
 use App\Entities\{User, RewardTransaction};
+use App\Services\PointsService;
 
 class PointsModel
 {
     public function __construct(
-        private \PDO $db
+        private \PDO $db,
+        private PointsService $pointsService
     ) {}
 
     public function getUserPoints(User $user)
@@ -14,6 +16,12 @@ class PointsModel
         $stmt->execute([$user->getId()]);
 
         return $stmt->fetchColumn();
+    }
+
+    public function addAward(User $user, int $amountSpent): bool
+    {
+        $stmt = $this->db->prepare("UPDATE users SET total_points = total_points + ? WHERE id = ?");
+        return $stmt->execute([$this->pointsService->calculateAward($amountSpent), $user->getId()]);
     }
 
     public function updatePoints(User $user, int $newBalance): bool

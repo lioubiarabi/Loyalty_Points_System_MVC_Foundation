@@ -15,13 +15,23 @@ class User
         return false;
     }
 
-    public function getEmail() {
+    public function getId() {
+        return $this->id;
+    }
+    public function gatName() {
         return $this->email;
+    }
+
+    public function getEmail() {
+        return $this->name;
     }
 
     public function getPassword() {
         return $this->password;
     }
 
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
     
 }

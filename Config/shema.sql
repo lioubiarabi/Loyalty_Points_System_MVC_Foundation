@@ -56,3 +56,18 @@ description TEXT,
 stock INT DEFAULT -1 -- -1 = unlimited
 
 );
+
+CREATE TABLE user_rewards (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    
+    user_id INT NOT NULL,
+    reward_id INT NOT NULL,
+    
+    status ENUM('active', 'used') DEFAULT 'active',
+    
+    redeemed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    used_at TIMESTAMP NULL,
+    
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (reward_id) REFERENCES rewards(id)
+);

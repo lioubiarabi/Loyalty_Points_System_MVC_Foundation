@@ -1,7 +1,7 @@
 <?php
 namespace App\Entities;
 
-class RewardTransaction
+class PointsTransaction
 {
     public function __construct(
         private int $id,

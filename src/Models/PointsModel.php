@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use App\Entities\{User, RewardTransaction};
+use App\Entities\{User, PointsTransaction};
 use App\Services\PointsService;
 
 class PointsModel
@@ -37,7 +37,7 @@ class PointsModel
 
         $history = [];
         foreach ($stmt->fetchAll() as $transaction) {
-            $history[$transaction['id']] = new RewardTransaction(
+            $history[$transaction['id']] = new PointsTransaction(
                 $transaction['id'],
                 $transaction['user_id'],
                 $transaction['type'],

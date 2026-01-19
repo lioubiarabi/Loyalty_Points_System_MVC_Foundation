@@ -1,4 +1,6 @@
 <?php
+namespace App\Services;
+
 session_start();
 
 class AuthService

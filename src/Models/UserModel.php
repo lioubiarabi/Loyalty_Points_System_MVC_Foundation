@@ -1,9 +1,13 @@
 <?php
+namespace App\Models;
+
+use App\Entities\User;
+use App\Services\AuthService;
 
 class UserModel
 {
     public function __construct(
-        private PDO $db,
+        private \PDO $db,
         private AuthService $authService
     ) {}
 

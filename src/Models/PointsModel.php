@@ -1,9 +1,11 @@
 <?php
+namespace App\Models;
+use App\Entities\{User, RewardTransaction};
 
 class PointsModel
 {
     public function __construct(
-        private PDO $db
+        private \PDO $db
     ) {}
 
     public function getUserPoints(User $user)

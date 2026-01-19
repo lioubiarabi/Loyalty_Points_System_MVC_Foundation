@@ -33,6 +33,15 @@ class AuthService
         return true;
     }
 
+    public function hashPassword(string $password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public function verifyPassword($password, $passhash)
+    {
+        password_verify($password, $passhash);
+    }
 
     public function login($email)
     {

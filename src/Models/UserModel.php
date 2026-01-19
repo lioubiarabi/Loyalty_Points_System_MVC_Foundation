@@ -3,7 +3,8 @@
 class UserModel
 {
     public function __construct(
-        private PDO $db
+        private PDO $db,
+        private AuthService $authService
     ) {}
 
     public function findUser(string $email)
@@ -25,12 +26,14 @@ class UserModel
         );
     }
 
-    public function create(string $name, string $email, string $passwordHash): bool
+    public function create(string $name, string $email, string $password): bool
     {
-        $sql = "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)";
-        $stmt = $this->db->prepare($sql);
+        if (!$this->authService->validateRegister($name, $email, $password)) return false;
+        if ($this->findUser($email)) return false;
 
-        return $stmt->execute([$name, $email, $passwordHash]);
+        $stmt = $this->db->prepare("INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)");
+
+        return $stmt->execute([$name, $email, $this->authService->hashPassword($password)]);
     }
 
     public function updatePoints(int $userId, int $newBalance): bool
